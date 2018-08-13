@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>index</title>
-    <script src="MyJquery.js"></script>
+    <script src="js/LBJQuery.js"></script>
 </head>
 <body>
 <div>我是div1</div>
@@ -12,9 +12,21 @@
 <div>我是div4</div>
 <script>
 
+    //条件为假
+    // console.log($(0));
+    // console.log($(false));
+    // console.log($(undefined));
+    // console.log($(NaN));
+    // console.log($(null));
+    //
+    // //条件为字符串HTML标签
     // console.log($('<div>我是div</div><span>我是span</span>'));
-    // console.log($('#box2'));
-    // console.log($('div'));
+    // console.log($('  <div>我是div</div><span>我是span</span>  '));
+    //条件为字符串选择器
+    console.log($('#box2'));
+    console.log($('div'));
+
+    //条件为数组
     console.log($([33, 44, 55, 66]));
 
 </script>

@@ -40,8 +40,6 @@
                     temp.innerHTML = option;
                     //遍历
                     Tools.each(temp.children,function (index,item) {
-                        console.log(index);
-                        console.log(item);
                         self[index] = item;
                     });
                     //更新length属性值
@@ -50,12 +48,37 @@
                 //2.2-option 是选择器字符串
                 else {
                     //获取所有满足条件的DOM
-                    const nodes = document.querySelectorAll(option);
-                    Tools.each(nodes,function (index,item) {
-                        self[index] = item;
-                    });
-                    //更新length属性值
-                    this.length = nodes.length;
+                    // const nodes = document.querySelectorAll(option);
+                    // Tools.each(nodes,function (index,item) {
+                    //     self[index] = item;
+                    // });
+                    // //更新length属性值
+                    // this.length = nodes.length;
+
+                    /*使用call或者apply 优化代码
+                    *
+                    *   call和apply 借用其它对象的方法,并且绑定函数中的this值
+                    *   语法:
+                    *       对象1.方法.call(对象2,参数1,参数2,...)
+                    *       对象1.方法.apply(对象2,[参数1,参数2,参数3,..])
+                    *
+                    *   区别:
+                    *       传递的参数不一样
+                    *       length属性值不一样 所有的函数的length值是该函数形参个数
+                    *   注意:
+                    *       函数的length属性值是形参的个数
+                    *       函数内部的arguments属性值是实参的个数
+                    * */
+
+
+                    /*
+                    * push 方法说明
+                    * push 是 Array.prototype上的方法 添加元素到数组的末尾
+                    *
+                    * 在此处:将数据添加到对象中(数据作为key为0,1,2,...对应的value值保存),并且更新length属性值
+                    * */
+
+                    [].push.apply(this,document.querySelectorAll(option));
                 }
             }
             //3.option 参数是数组或者是伪数组
@@ -111,14 +134,19 @@
             }
             //ES5-
             else {
+                // \s : 匹配空格
+                // \s+ : 匹配多个空格
+                // ^\s+: 匹配开头多个空格
+                // \s$: 匹配结尾多个空格
+                // g : 匹配多次 直到结束
 
-                option.replace("/s+ | s/g","")
+                //replace 替换(原字符,新字符)
+                option.replace(/^\s+ | \s+$/g,"")
             }
         },
 
         isArray:function(option){
-            console.log('array');
-            console.log(Array.prototype.isPrototypeOf.call(option));
+
         },
 
         /**
